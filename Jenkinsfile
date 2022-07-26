@@ -7,7 +7,7 @@ pipeline {
                 sh 'rm -rf test-reports || true'  
             }
         }
-	stage ('Unit test') {
+	stage ('Unit test and Coverage') {
 	    steps {
 		sh 'python3 test.py && coverage run test.py && coverage xml && coverage report app.py test.py'
 	    }
@@ -24,11 +24,6 @@ pipeline {
 		}
 	    }
 	}
-        stage ('Generate Test Reports') {
-            steps {
-                junit 'test-reports/*.xml'
-            }
-        }
 	stage ('Publish Artifactory') {
 	    steps {
 		    withCredentials([usernamePassword(credentialsId: 'artifactory', passwordVariable: 'passwd', usernameVariable: 'user')]) {
