@@ -26,7 +26,6 @@ pipeline {
 	}
 	stage ('Publish Artifactory') {
 	    steps {
-		    echo ' ******** deploy artifacts *********'
 		    withCredentials([usernamePassword(credentialsId: 'artifactory', passwordVariable: 'passwd', usernameVariable: 'user')]) {
     		         sh 'jf rt upload test-reports/ python-app/'
 		    }	
